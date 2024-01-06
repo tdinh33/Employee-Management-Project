@@ -145,6 +145,28 @@ function xoaNV(taiKhoan) {
 }
 
 function capNhatNV(taiKhoan) {
+    // tìm kiếm NV dựa trên tài khoản
+    var nvToUpdate = dsnv.find(function (nv) {
+        return nv.taiKhoan === taiKhoan;
+    });
+
+    if (!nvToUpdate) {
+        alert("Nhân viên không tồn tại.");
+        return;
+    }
+
+    document.getElementById("tknv").value = nvToUpdate.taiKhoan;
+    document.getElementById("name").value = nvToUpdate.hoTen;
+    document.getElementById("password").value = nvToUpdate.matKhau;
+    document.getElementById("email").value = nvToUpdate.email;
+    document.getElementById("datepicker").value = nvToUpdate.ngayLam;
+    document.getElementById("luongCB").value = nvToUpdate.luongCoBan;
+    document.getElementById("chucvu").value = nvToUpdate.chucVu;
+    document.getElementById("gioLam").value = nvToUpdate.gioLamTrongThang;
+
+
+
+    renderDSNV(nvToUpdate);
 
 }
 
