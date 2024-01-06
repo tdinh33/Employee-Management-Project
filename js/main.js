@@ -38,7 +38,68 @@ function themNV() {
     var chucVu = document.getElementById("chucvu").value;
     var gioLamTrongThang = parseFloat(document.getElementById("gioLam").value);
 
+    // Validation
+    var isValid = true;
+    var errorMessages = [];
+    
 
+    // Validate Tài Khoản 
+    if (!taiKhoan || !/^\d{4,6}$/.test(taiKhoan)) {
+        isValid = false;
+        errorMessages.push("Tài khoản phải là số từ 4-6 ký tự.");
+    }
+    
+
+    // Validate Tên nhân viên 
+    if (!hoTen || !/^[a-zA-Z\s]+$/.test(hoTen)) {
+        isValid = false;
+        errorMessages.push("Tên nhân viên không hợp lệ.");
+    }
+   
+    // Validate Email
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+        isValid = false;
+        errorMessages.push("Email không hợp lệ.");
+    }
+
+    // Validate password
+    if (!matKhau || !/^.{6,10}$/.test(matKhau) || !/\d/.test(matKhau) || !/[A-Z]/.test(matKhau) || !/[\W_]/.test(matKhau)) {
+        isValid = false;
+        errorMessages.push("Mật khẩu phải từ 6-10 ký tự và chứa ít nhất 1 số, 1 chữ in hoa, 1 ký tự đặt biệt.");
+    }
+
+    // Validate ngày làm
+    if (!ngayLam) {
+        isValid = false;
+        errorMessages.push("Ngày làm không được để trống.");
+    }
+
+    // Validate lương CB
+    if (isNaN(luongCoBan) || luongCoBan < 1000000 || luongCoBan > 2000000) {
+        isValid = false;
+        errorMessages.push("Lương cơ bản phải từ 1,000,000 - 20,000,000 VND.");
+    }
+
+    // Validate chức vụ 
+    if (!chucVu || !["Sếp","Trưởng Phòng","Nhân Viên"].includes(chucVu)) {
+        isValid = false;
+        errorMessages.push("Chức vụ không hợp lệ.");
+    }
+
+
+    // Validate giờ làm
+    if (isNaN(gioLamTrongThang) || gioLamTrongThang < 80 || gioLamTrongThang > 200) {
+        isValid = false;
+        errorMessages.push("Số giờ làm trong tháng phải từ 80 - 200 giờ.");
+    }
+
+    if (!isValid) {
+        alert("Lỗi:\n" + errorMessages.join("\n"));
+        return;
+    }
+
+
+    // tính tổng lương
     var nv = {
         taiKhoan: taiKhoan,
         hoTen: hoTen,
